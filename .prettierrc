@@ -1,0 +1,8 @@
+{
+	"embeddedLanguageFormatting": "auto",
+	"singleQuote": true,
+	"semi": true,
+	"endOfLine": "lf",
+	"bracketSpacing": true,
+	"printWidth": 90
+}
