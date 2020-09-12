@@ -1,8 +1,4 @@
 import { Observable } from 'rxjs';
-import { share } from 'rxjs/operators';
-
-let number = 0;
-console.log(number);
 
 // Promises tem comportamento Eager, o resolve roda uma vez só e é imediatamente executado em todos os .then()
 
@@ -16,36 +12,26 @@ console.log(number);
 // execução imediata (Eager) |  execução sob demanda (Lazy)
 // estado compartilhado 		 |  estado não compartilhado por padrão   (multicast | unicast)
 // assíncrona  				  		 |  síncrona ou assíncrona
-//
+// não cancelável						 |  cancelável
 //
 
 const myPromise = new Promise((resolve) => {
-	console.log('Iniciando promise! ' + number);
-	number++;
-	setTimeout(() => resolve(number), 3000);
+	resolve(1);
 });
 
 const myObservable = new Observable((observer) => {
-	console.log('Iniciando Observable! ' + number);
-	number++;
-	setTimeout(() => observer.next(number), 3000);
-}).pipe(share()); // <== o share fará o observable se comportar igual a promise
+	let i = 0;
+	const interval = setInterval(() => {
+		console.log('leak' + i);
+		observer.next(i++);
+	}, 1000);
 
-// isto é, os dois observers abaixo serão executados ao mesmo tempo
-
-myPromise.then((data) => console.log('Promise ' + data));
-myObservable.subscribe((data) => {
-	number++;
-	console.log('Observer ' + data);
+	return () => clearInterval(interval); // <== previnindo memory leak
 });
 
+myPromise.then((data) => console.log('Promise ' + data));
+const subscription = myObservable.subscribe((data) => console.log('Observer ' + data));
+
 setTimeout(() => {
-	myPromise.then((data) => {
-		number++;
-		console.log('Promise ' + data);
-	});
-	myObservable.subscribe((data) => {
-		number++;
-		console.log('Observer ' + data);
-	});
-}, 2000);
+	subscription.unsubscribe();
+}, 5000);
