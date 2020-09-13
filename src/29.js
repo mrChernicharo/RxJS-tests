@@ -7,6 +7,7 @@ import {
 	pluck,
 	switchMap,
 	catchError,
+	startWith,
 	distinctUntilChanged,
 } from 'rxjs/operators';
 
@@ -36,7 +37,7 @@ inputObs
 		}),
 		catchError((err, source) => {
 			console.log(err);
-			return source;
+			return source.pipe(startWith([]));
 		})
 	)
 	.subscribe(showResults);
