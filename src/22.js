@@ -1,25 +1,19 @@
-import { fromEvent } from 'rxjs';
-import {
-	throttleTime,
-	switchMap,
-	takeUntil,
-	map,
-	tap,
-	debounceTime,
-	delay,
-} from 'rxjs/operators';
+import { fromEvent, merge } from 'rxjs';
+import { switchMap, takeUntil, map, delay, filter, tap, skip } from 'rxjs/operators';
 
-const body = document.querySelector('#body');
+// const body = document.querySelector('#body');
 const card = document.createElement('div');
 card.style.cssText = `position: absolute; width: 300px; height: 200px;
-	background-image: linear-gradient(45deg, green, #42df98); box-shadow: #333 3px 3px 5px;
-	cursor: grab`;
+	background-image: linear-gradient(45deg, royalblue, lightblue); box-shadow: #333 3px 3px 5px;
+	cursor: grab;`;
 
-body.append(card);
+document.body.append(card);
 
 const mouseDown$ = fromEvent(card, 'mousedown');
-const mouseUp$ = fromEvent(document, 'mouseup');
-const mouseMove$ = fromEvent(document, 'mousemove');
+const mouseUp$ = fromEvent(document, 'mouseup'); // <== document
+const mouseMove$ = fromEvent(document, 'mousemove'); // <== document..não card
+
+const keyUp$ = fromEvent(document, 'keyup');
 
 const dragAndDrop = mouseDown$.pipe(
 	map((e) => ({
@@ -31,18 +25,28 @@ const dragAndDrop = mouseDown$.pipe(
 		},
 	})),
 	switchMap((start) =>
-		mouseMove$.pipe(
-			map((e) => ({
-				x: e.clientX - start.x + start.target.x,
-				y: e.clientY - start.y + start.target.y,
-			})),
-			takeUntil(mouseUp$)
+		merge(
+			mouseMove$.pipe(
+				map((e) => ({
+					x: e.clientX - start.x + start.target.x,
+					y: e.clientY - start.y + start.target.y,
+				})),
+				takeUntil(mouseUp$)
+			),
+			keyUp$.pipe(
+				filter((e) => e.which === 32), // tecla de espaço
+				tap((key) => {
+					const clone = card.cloneNode();
+					document.body.insertBefore(clone, card); // irado!
+				}),
+				skip() // descarta o fluxo de keyUp$ sem retorná-lo
+			)
 		)
 	)
 );
 
-dragAndDrop.pipe(delay(120)).subscribe((val) => {
-	console.log(val);
+dragAndDrop.pipe(delay(240)).subscribe((val) => {
+	// console.log(val);
 	card.style.top = `${val.y}px`;
 	card.style.left = `${val.x}px`;
 });
