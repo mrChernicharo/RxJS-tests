@@ -1,4 +1,4 @@
-import { fromEvent } from 'rxjs';
+import { fromEvent, interval } from 'rxjs';
 import { debounceTime, map, take, tap, throttleTime } from 'rxjs/operators';
 
 const body = document.getElementById('body');
@@ -11,7 +11,7 @@ body.append(input, btn);
 // Ele te permite transformar eventos JS em observables
 // Assim vc pode programar direitinho a maneira de reagir a esses eventos
 
-fromEvent(btn, 'click').subscribe((v) => console.log(v));
+const subs = fromEvent(btn, 'click').subscribe((v) => console.log(v));
 
 fromEvent(input, 'input')
 	.pipe(
@@ -21,3 +21,10 @@ fromEvent(input, 'input')
 	.subscribe((v) => {
 		console.log(v.target.value);
 	});
+
+// com isso aqui o botão para de funcionar após 3 seg
+interval(1000).subscribe((v) => {
+	if (v > 3) {
+		subs.unsubscribe();
+	}
+});
