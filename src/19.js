@@ -17,7 +17,7 @@ console.log('------------------------------------------------------');
 
 const baz = (a, cb) => {
 	// return cb(undefined, a);  // ok
-	return cb(new Error('err'), a);
+	return cb(new Error('erroooorrr'), a);
 };
 
 bindNodeCallback(baz)(10).subscribe((v) => console.log(v));
