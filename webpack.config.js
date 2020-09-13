@@ -27,8 +27,8 @@ module.exports = {
 	// entry: './src/23.js',
 	// entry: './src/24.js',
 	// entry: './src/25.js',
-	entry: './src/26.js', // novo html - projeto typeAhead | Autocomplete
-	// entry: './src/27.js',
+	// entry: './src/26.js', // novo html - projeto typeAhead | Autocomplete
+	entry: './src/27.js',
 	// entry: './src/28.js',
 	// entry: './src/29.js',
 	// entry: './src/30.js',

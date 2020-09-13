@@ -5,6 +5,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>RxJS</title>
 		<style>
+			* {
+				font-family: 'Roboto', sans-serif;
+			}
+
 			body {
 				background-image: radial-gradient(circle at 80%, rgb(255, 64, 0), orange);
 				display: flex;
@@ -12,6 +16,18 @@
 				align-items: center;
 				justify-content: center;
 				height: 100vh;
+			}
+			.content {
+				width: 232px;
+			}
+			ul {
+				position: absolute;
+				max-height: 300px;
+				overflow: auto;
+			}
+			label {
+				color: #fff;
+				margin-bottom: 4px;
 			}
 
 			li {
@@ -39,16 +55,18 @@
 				padding-left: 10px;
 				box-shadow: 0px -1px 1px 1px #333;
 				outline: none;
+				margin-top: 8px;
 			}
 		</style>
 	</head>
 	<body>
 		<div class="content">
-			<input type="text" placeholder="país" />
+			<label for="country">Digite o nome do país</label>
+			<input type="text" name="country" placeholder="país" />
 			<ul>
+				<!-- <li><span>Brazil</span></li>
 				<li><span>Brazil</span></li>
-				<li><span>Brazil</span></li>
-				<li><span>Brazil</span></li>
+				<li><span>Brazil</span></li> -->
 			</ul>
 		</div>
 		<script src="bundle.js"></script>
