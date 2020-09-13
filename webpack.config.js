@@ -21,8 +21,8 @@ module.exports = {
 	// entry: './src/17.js',
 	// entry: './src/18.js',
 	// entry: './src/19.js',
-	entry: './src/20.js',
-	// entry: './src/21.js',
+	// entry: './src/20.js',
+	entry: './src/21.js',
 	// entry: './src/22.js',
 	// entry: './src/23.js',
 	devServer: {
