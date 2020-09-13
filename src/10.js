@@ -14,6 +14,7 @@ let i = 0;
 const subscription = subject.subscribe(
 	(data) => console.log('Observer 1: ' + data),
 	(err) => console.log(err),
+
 	() => console.log('complete')
 );
 
@@ -34,3 +35,5 @@ setTimeout(() => {
 	subscription.unsubscribe();
 	clearInterval(interval);
 }, 6000);
+
+// os subjects lembram muito os eventEmitters do node
