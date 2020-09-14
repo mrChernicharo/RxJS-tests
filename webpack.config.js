@@ -32,7 +32,13 @@ module.exports = {
 	// entry: './src/27.js',
 	// entry: './src/28.js',
 	// entry: './src/29.js',
-	entry: './src/30.js',
+	// entry: './src/30.js',
+	// entry: './src/31.js',
+	// entry: './src/32.js',
+	entry: './src/33.js', // + um html
+	// entry: './src/34.js',
+	// entry: './src/35.js',
+	// entry: './src/36.js',
 	devServer: {
 		contentBase: './dist',
 	},

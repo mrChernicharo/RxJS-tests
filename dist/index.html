@@ -4,8 +4,41 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>RxJS</title>
+		<!-- Compiled and minified CSS -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+		/>
+		<style>
+			body {
+				background: #444;
+				color: #fff;
+			}
+			.container {
+				height: 100vh;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+			}
+			#content {
+				text-align: center;
+				font-size: 2.5rem;
+				height: 8rem;
+				display: flex;
+				align-items: center;
+			}
+		</style>
 	</head>
-	<body id="body">
+	<body>
+		<div class="container">
+			<button id="b1" class="btn btn-red" style="display: none">Parar Requisição</button>
+			<button id="b2" class="btn">Enviar Requisição</button>
+			<div id="content">teste</div>
+		</div>
+
+		<!-- Compiled and minified JavaScript -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 		<script src="bundle.js"></script>
 	</body>
 </html>
