@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/33.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/35.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -2557,15 +2557,15 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 
 /***/ }),
 
-/***/ "./src/33.js":
+/***/ "./src/35.js":
 /*!*******************!*\
-  !*** ./src/33.js ***!
+  !*** ./src/35.js ***!
   \*******************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ \"./node_modules/rxjs/_esm5/index.js\");\n/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ \"./node_modules/rxjs/_esm5/operators/index.js\");\n/* harmony import */ var rxjs_ajax__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/ajax */ \"./node_modules/rxjs/_esm5/ajax/index.js\");\n\n\n\n\nconst api = (response, delay) =>\n\tObject(rxjs_ajax__WEBPACK_IMPORTED_MODULE_2__[\"ajax\"])({\n\t\turl: `http://localhost:5200/response/${JSON.stringify(response)}/delay/${delay}`,\n\t});\n\nconst a = api({ data: 'A' }, 500);\nconst b = api({ data: 'B' }, 1000);\nconst c = api({ data: 'C' }, 1500);\nconst d = api({ data: 'D' }, 2000);\nconst e = api({ data: 'E' }, 2500);\nconst f = api({ data: 'F' }, 3000);\nconst g = api({ data: 'G' }, 3500);\nconst h = api({ data: 'H' }, 4000);\nconst i = api({ data: 'I' }, 4500);\nconst j = api({ data: 'J' }, 5000);\nconst k = api({ data: 'J' }, 6000);\n\n// merge(a, b, c, d, e, f, g, h, i, j, k)  // concat(a, b, c, d, e, f, g, h, i, j, k)\n\nObject(rxjs__WEBPACK_IMPORTED_MODULE_0__[\"of\"])(a, b, c, d, e, f, g, h, i, j, k)\n\t.pipe(\n\t\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__[\"mergeMap\"])((val) => val), //retorna objetos tipo Ajax Response\n\t\t// concatMap((val) => val),\n\t\t// switchMap((val) => val),\n\t\t// exhaustMap((val) => val),\n\t\t// mergeMap((val) => val, 2),\n\t\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__[\"pluck\"])('response', 'data'),\n\t\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__[\"combineAll\"])()\n\t)\n\n\t.subscribe(\n\t\t(x) => console.log(x),\n\t\t(error) => console.log(error),\n\t\t() => console.log('complete')\n\t);\n\n// MergeMap => executa todas as requisições ao mesmo tempo na medida do possível. Conforme as primeiras vão concluindo ele vai disparando as que faltam\n// ConcatMap => envia uma requisição por vez. Só envia a seguinte quando a primeira concluiu\n// SwitchMap => chama todas mas não espera: se tem mais pra chamar, ele cancela a atual e chama a próxima, cancela e chama a próxima, cancela e chama a próxima, até chegar na última, que é a única que ele deixa completar\n// exhaustMap => ao contrário do switchMap, essa mantém apenas a primeira requisição e não dispara as demais. Enquanto a atual estiver executando, todas as demais são ignoradas.\n\n// * exhaustMap é útil pra formulários, pra evitar que o usuário mande o mesmo form várias vezes se ele socar o botão várias vezes\n// * mergeMap pode ter seu máximo de paralelismo limitado. =>  mergeMap((val) => val, 3)  <== só dispara um máximo de 3 reqs simultânes\n\n// vai cancelando a atual e chama a próxima\n\n\n//# sourceURL=webpack:///./src/33.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ \"./node_modules/rxjs/_esm5/index.js\");\n/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ \"./node_modules/rxjs/_esm5/operators/index.js\");\n/* harmony import */ var rxjs_ajax__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/ajax */ \"./node_modules/rxjs/_esm5/ajax/index.js\");\n\n\n\n\nconst content = document.querySelector('#content');\nconst btnSend = document.querySelector('#b2');\nconst btnStop = document.querySelector('#b1');\n\nconst buttonRequest$ = Object(rxjs__WEBPACK_IMPORTED_MODULE_0__[\"fromEvent\"])(btnSend, 'click');\nconst buttonStopRequest$ = Object(rxjs__WEBPACK_IMPORTED_MODULE_0__[\"fromEvent\"])(btnStop, 'click');\n\nconst api = (response, delay) =>\n\tObject(rxjs_ajax__WEBPACK_IMPORTED_MODULE_2__[\"ajax\"])({\n\t\turl: `http://localhost:5200/response/${JSON.stringify(response)}/delay/${delay}`,\n\t});\n\nconst setContentHTML = (text) => (content.innerHTML = text);\n\nconst request = api({ data: 'Hello API' }, 2000).pipe(\n\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__[\"pluck\"])('response', 'data'),\n\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__[\"tap\"])(setContentHTML)\n);\n\nconst requesting = (bool) => {\n\tbtnSend.style = showElement(!bool);\n\tbtnStop.style = showElement(bool);\n};\n\nconst showElement = (bool) => {\n\treturn bool ? 'display : block' : 'display: none';\n};\n\nbuttonRequest$\n\t.pipe(\n\t\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__[\"tap\"])(() => {\n\t\t\trequesting(true);\n\t\t\tsetContentHTML(`Carregando...`);\n\t\t}),\n\t\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__[\"switchMap\"])(() => request),\n\t\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__[\"tap\"])(() => requesting(false))\n\t)\n\t.subscribe();\n\n\n//# sourceURL=webpack:///./src/35.js?");
 
 /***/ })
 
