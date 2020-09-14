@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
 	mode: 'development',
-	entry: './src/00.js',
+	// entry: './src/00.js',
 	// entry: './src/01.js',
 	// entry: './src/02.js',
 	// entry: './src/03.js',
@@ -32,7 +32,7 @@ module.exports = {
 	// entry: './src/27.js',
 	// entry: './src/28.js',
 	// entry: './src/29.js',
-	// entry: './src/30.js',
+	entry: './src/30.js',
 	devServer: {
 		contentBase: './dist',
 	},

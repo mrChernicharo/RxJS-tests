@@ -8,8 +8,9 @@ http
 			'Access-Control-Allow-Origin': '*',
 		});
 
+		// http://localhost:5200/response/{"data": "hello world"}/delay/1000/ -> http://localhost:5200/response/%7B%22data%22:%20%22hello%20world%22%7D/delay/1000/
 		const matchURL = /^\/response\/(.+)\/delay\/(\d+)\/?$/;
-		// http://localhost:5200/response/{"data": "hello world"}/delay/1000/
+
 		if (!matchURL.test(request.url)) {
 			return response.end();
 		}
@@ -19,6 +20,6 @@ http
 		setTimeout(() => {
 			response.write(jsonResponse);
 			response.end();
-		}, 1000);
+		}, +delay);
 	})
 	.listen(5200);
