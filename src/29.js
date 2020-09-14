@@ -12,7 +12,7 @@ import {
 } from 'rxjs/operators';
 
 const input = document.querySelector('input');
-const inputObs = fromEvent(input, 'input');
+const inputObs$ = fromEvent(input, 'input');
 const ul = document.querySelector('ul');
 
 const showResults = (res) => {
@@ -26,7 +26,8 @@ const serarchCountries = (termo) => {
 		map((res) => res.map((e) => e.name))
 	);
 };
-inputObs
+
+inputObs$
 	.pipe(
 		debounceTime(1000),
 		pluck('target', 'value'),
