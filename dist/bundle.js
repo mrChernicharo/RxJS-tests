@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/35.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/29.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -2557,15 +2557,15 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 
 /***/ }),
 
-/***/ "./src/35.js":
+/***/ "./src/29.js":
 /*!*******************!*\
-  !*** ./src/35.js ***!
+  !*** ./src/29.js ***!
   \*******************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ \"./node_modules/rxjs/_esm5/index.js\");\n/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ \"./node_modules/rxjs/_esm5/operators/index.js\");\n/* harmony import */ var rxjs_ajax__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/ajax */ \"./node_modules/rxjs/_esm5/ajax/index.js\");\n\n\n\n\nconst content = document.querySelector('#content');\nconst btnSend = document.querySelector('#b2');\nconst btnStop = document.querySelector('#b1');\n\nconst buttonRequest$ = Object(rxjs__WEBPACK_IMPORTED_MODULE_0__[\"fromEvent\"])(btnSend, 'click');\nconst buttonStopRequest$ = Object(rxjs__WEBPACK_IMPORTED_MODULE_0__[\"fromEvent\"])(btnStop, 'click');\n\nconst api = (response, delay) =>\n\tObject(rxjs_ajax__WEBPACK_IMPORTED_MODULE_2__[\"ajax\"])({\n\t\turl: `http://localhost:5200/response/${JSON.stringify(response)}/delay/${delay}`,\n\t});\n\nconst setContentHTML = (text) => (content.innerHTML = text);\n\nconst request = api({ data: 'Hello API' }, 2000).pipe(\n\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__[\"pluck\"])('response', 'data'),\n\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__[\"tap\"])(setContentHTML)\n);\n\nconst requesting = (bool) => {\n\tbtnSend.style = showElement(!bool);\n\tbtnStop.style = showElement(bool);\n};\n\nconst showElement = (bool) => {\n\treturn bool ? 'display : block' : 'display: none';\n};\n\nbuttonRequest$\n\t.pipe(\n\t\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__[\"tap\"])(() => {\n\t\t\trequesting(true);\n\t\t\tsetContentHTML(`Carregando...`);\n\t\t}),\n\t\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__[\"switchMap\"])(() => request),\n\t\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__[\"tap\"])(() => requesting(false))\n\t)\n\t.subscribe();\n\n\n//# sourceURL=webpack:///./src/35.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! rxjs */ \"./node_modules/rxjs/_esm5/index.js\");\n/* harmony import */ var rxjs_ajax__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/ajax */ \"./node_modules/rxjs/_esm5/ajax/index.js\");\n/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs/operators */ \"./node_modules/rxjs/_esm5/operators/index.js\");\n\n\n\n\nconst input = document.querySelector('input');\nconst inputObs$ = Object(rxjs__WEBPACK_IMPORTED_MODULE_0__[\"fromEvent\"])(input, 'input');\nconst ul = document.querySelector('ul');\n\nconst showResults = (res) => {\n\tul.innerHTML = res.map((item) => `<li><span>${item}</span></li>`).join('');\n};\n\nconst serarchCountries = (termo) => {\n\treturn Object(rxjs_ajax__WEBPACK_IMPORTED_MODULE_1__[\"ajax\"])(`https://restcountries.eu/rest/v2/name/${termo}?fields=name`).pipe(\n\t\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__[\"tap\"])((e) => console.log(e)),\n\t\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__[\"pluck\"])('response'),\n\t\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__[\"map\"])((res) => res.map((e) => e.name))\n\t);\n};\n\ninputObs$\n\t.pipe(\n\t\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__[\"debounceTime\"])(1000),\n\t\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__[\"pluck\"])('target', 'value'),\n\t\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__[\"map\"])((e) => e.trim()),\n\t\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__[\"distinctUntilChanged\"])(), // <-- bloqueia a emissão de novo valor caso não haja mudanças\n\t\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__[\"switchMap\"])((termo) => {\n\t\t\treturn !termo || termo.length < 3 ? Object(rxjs__WEBPACK_IMPORTED_MODULE_0__[\"of\"])([]) : serarchCountries(termo);\n\t\t}),\n\t\tObject(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__[\"catchError\"])((err, source) => {\n\t\t\tconsole.log(err);\n\t\t\treturn source.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__[\"startWith\"])([]));\n\t\t})\n\t)\n\t.subscribe(showResults);\n\n// se tivermos menos de 3 caracteres, ou um undefined\n// não vamos disparar requisição nenhuma\n// e simplesmente retornar um array vazio\n// mantendo o stream vivo\n\n// com distinctUntilChanged, agora se a gente digita, apaga e põe o mesmo valor\n// rapidamente, o valor não passa no stream e não ocorre uma nova chamada à API\n\n\n//# sourceURL=webpack:///./src/29.js?");
 
 /***/ })
 

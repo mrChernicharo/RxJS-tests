@@ -53,8 +53,8 @@ const dragAndDrop = mouseDown$.pipe(
 						clone.style.border = 'none';
 						document.body.insertBefore(clone, card);
 					}
-				})
-				// skip() // descarta o fluxo de keyUp$ sem retorná-lo
+				}),
+				skip() // descarta o fluxo de keyUp$ sem retorná-lo
 			)
 		)
 	)

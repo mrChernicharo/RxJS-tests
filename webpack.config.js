@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
 	mode: 'development',
-	// entry: './src/00.js',
+	// entry: './src/00.fromEvent.interval.js',
 	// entry: './src/01.js',
 	// entry: './src/02.js',
 	// entry: './src/03.js',
@@ -27,17 +27,17 @@ module.exports = {
 	// entry: './src/22.js',
 	// entry: './src/23.js',
 	// entry: './src/24.js',
-	// entry: './src/25.js',
+	// entry: './src/25.js', // final projeto cards
 	// entry: './src/26.js', // novo html - projeto typeAhead | Autocomplete
 	// entry: './src/27.js',
 	// entry: './src/28.js',
-	// entry: './src/29.js',
+	entry: './src/29.js', // final projeto busca países
 	// entry: './src/30.js',
 	// entry: './src/31.js',
 	// entry: './src/32.js',
 	// entry: './src/33.js', // + um html
 	// entry: './src/34.js',
-	entry: './src/35.js',
+	// entry: './src/35.js',
 	// entry: './src/36.js',
 	devServer: {
 		contentBase: './dist',

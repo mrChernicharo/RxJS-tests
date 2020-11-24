@@ -6,6 +6,9 @@ import {
 	map,
 	pluck,
 	switchMap,
+	exhaustMap,
+	concatMap,
+	mergeMap,
 	catchError,
 	startWith,
 	distinctUntilChanged,
@@ -22,7 +25,7 @@ const showResults = (res) => {
 const serarchCountries = (termo) => {
 	return ajax(`https://restcountries.eu/rest/v2/name/${termo}?fields=name`).pipe(
 		tap((e) => console.log(e)),
-		pluck('response'),
+		pluck('response'), // map(data => data.response)
 		map((res) => res.map((e) => e.name))
 	);
 };
